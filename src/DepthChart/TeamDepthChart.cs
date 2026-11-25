@@ -49,7 +49,7 @@ public sealed class TeamDepthChart
 
         int index = positionRecord.FindIndex(existing => existing.JerseyNumber == player.JerseyNumber);
 
-        // Return an empty list if the player is not in record
+        // Return an empty list if the player is not listed
         if(index == -1)
         {   
             return [];
@@ -63,7 +63,22 @@ public sealed class TeamDepthChart
 
     public IReadOnlyList<Player> GetBackups(string position, Player player)
     {
-        throw new NotImplementedException();
+        // Return an empty list if the position does not exist.
+        if(!depthChartRecord.TryGetValue(position, out var positionRecord))
+        {
+            return [];
+        }
+
+        int index = positionRecord.FindIndex(existing => existing.JerseyNumber == player.JerseyNumber);
+
+        // Return an empty list if the player is not listed or has no backups.
+        if(index == -1 || index == positionRecord.Count-1)
+        {
+            return [];
+        }
+
+        // Return players after index in order
+        return positionRecord[(index + 1)..].AsReadOnly();
     }
 
     // Returns chart data; presentation/printing can be handled separately.
