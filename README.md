@@ -31,6 +31,13 @@ dotnet build src/DepthChart/DepthChart.csproj
 
 ### Run the console demonstration
 
+```bash
+dotnet run --project src/DepthChart.Console/DepthChart.Console.csproj
+```
+
+The demonstration adds sample players, displays backups, removes players, and
+prints the depth chart before and after removal.
+
 #### Example output
 
 ```text
@@ -64,13 +71,6 @@ RWR - (#16, Breshad Perriman)
 LT - (#76, Donovan Smith), (#72, Josh Wells)
 RT - (#78, Tristan Wirfs), (#72, Josh Wells)
 ```
-
-```bash
-dotnet run --project src/DepthChart.Console/DepthChart.Console.csproj
-```
-
-The demonstration adds sample players, displays backups, removes players, and
-prints the depth chart before and after removal.
 
 ### Run tests
 
