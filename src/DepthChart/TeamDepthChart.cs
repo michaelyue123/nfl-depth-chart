@@ -39,10 +39,26 @@ public sealed class TeamDepthChart
     }
 
     // The specification describes a player on success and an empty list on failure.
-    // This return type is a placeholder for us to discuss.
     public IReadOnlyList<Player> RemovePlayerFromDepthChart(string position, Player player)
-    {
-        throw new NotImplementedException();
+    {   
+        // Return an empty list if the position does not exist.
+        if(!depthChartRecord.TryGetValue(position, out var positionRecord))
+        {
+            return [];
+        }
+
+        int index = positionRecord.FindIndex(existing => existing.JerseyNumber == player.JerseyNumber);
+
+        // Return an empty list if the player is not in record
+        if(index == -1)
+        {   
+            return [];
+        }
+
+        Player removedPlayer = positionRecord[index];
+        positionRecord.RemoveAt(index);
+
+        return [removedPlayer];
     }
 
     public IReadOnlyList<Player> GetBackups(string position, Player player)

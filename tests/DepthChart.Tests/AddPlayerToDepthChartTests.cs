@@ -2,7 +2,7 @@ using Xunit;
 
 namespace DepthChart.Tests;
 
-public class TeamDepthChartTests
+public class AddPlayerToDepthChartTests
 {
     private readonly TeamDepthChart _depthChart = new();
 
