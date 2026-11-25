@@ -31,6 +31,40 @@ dotnet build src/DepthChart/DepthChart.csproj
 
 ### Run the console demonstration
 
+#### Example output
+
+```text
+=== Initial depth chart ===
+QB - (#12, Tom Brady), (#11, Blaine Gabbert), (#2, Kyle Trask)
+LWR - (#13, Mike Evans), (#1, Jaelon Darden), (#10, Scott Miller)
+RWR - (#18, Tyler Johnson), (#16, Breshad Perriman)
+LT - (#76, Donovan Smith), (#72, Josh Wells)
+RT - (#78, Tristan Wirfs), (#72, Josh Wells)
+
+Backups for #13 Mike Evans at LWR:
+  #1 - Jaelon Darden
+  #10 - Scott Miller
+
+Backups for #16 Breshad Perriman at RWR:
+  No backups found.
+
+Backups for #10 Scott Miller at RT:
+  No backups found.
+
+Removing #18 Tyler Johnson from RWR:
+  Removed #18 - Tyler Johnson
+
+Removing #12 Tom Brady from LWR:
+  Player not found at this position.
+
+=== Depth chart after removals ===
+QB - (#12, Tom Brady), (#11, Blaine Gabbert), (#2, Kyle Trask)
+LWR - (#13, Mike Evans), (#1, Jaelon Darden), (#10, Scott Miller)
+RWR - (#16, Breshad Perriman)
+LT - (#76, Donovan Smith), (#72, Josh Wells)
+RT - (#78, Tristan Wirfs), (#72, Josh Wells)
+```
+
 ```bash
 dotnet run --project src/DepthChart.Console/DepthChart.Console.csproj
 ```
