@@ -68,4 +68,31 @@ public class RemovePlayerFromDepthChartTests
         Assert.Contains(_kyleTrask, chart["RT"]);
         Assert.Empty(chart["QB"]);
     }
+
+    [Fact]
+    public void RemovePlayer_NullPosition_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() =>
+            _depthChart.RemovePlayerFromDepthChart(null!, _tomBrady));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void RemovePlayer_EmptyOrWhitespacePosition_ThrowsArgumentException(
+        string position)
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() =>
+            _depthChart.RemovePlayerFromDepthChart(position, _tomBrady));
+    }
+
+    [Fact]
+    public void RemovePlayer_NullPlayer_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() =>
+            _depthChart.RemovePlayerFromDepthChart("QB", null!));
+    }
 }

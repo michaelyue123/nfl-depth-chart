@@ -79,4 +79,31 @@ public class GetBackupsTests
         // Assert
         Assert.Empty(backups);
     }
+
+    [Fact]
+    public void GetBackups_NullPosition_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() =>
+            _depthChart.GetBackups(null!, _tomBrady));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void GetBackups_EmptyOrWhitespacePosition_ThrowsArgumentException(
+        string position)
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() =>
+            _depthChart.GetBackups(position, _tomBrady));
+    }
+
+    [Fact]
+    public void GetBackups_NullPlayer_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() =>
+            _depthChart.GetBackups("QB", null!));
+    }
 }

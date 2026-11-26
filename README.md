@@ -110,6 +110,12 @@ the behavior:
   throws `ArgumentOutOfRangeException` without changing the chart.
 - Adding a player whose jersey number is already listed at the same position is
   ignored. Depth is validated before checking for duplicates.
+- Public operations that accept a position or player reject null values with
+  `ArgumentNullException`. Empty or whitespace-only positions are rejected
+  with `ArgumentException`. Position names are used as supplied: they are not
+  trimmed, case-folded, or otherwise normalized.
+- Position names are not validated against a predefined list of NFL positions.
+  A non-empty name such as `qB` is treated as a different position from `QB`.
 - A successful removal returns a list containing the removed player; an
   unsuccessful removal returns an empty list.
 - Removing the last player from a position leaves that position in the chart
@@ -131,12 +137,17 @@ at the queried position.
 
 ## Future considerations
 
-- **Multiple teams:** Manage a separate `TeamDepthChart` instance for each team,
-  identified by a team ID. Jersey-number uniqueness would remain scoped to a
-  team.
+- **Multiple NFL teams:** A manager could use a
+  `Dictionary<string, TeamDepthChart>` to map each team ID to a separate depth
+  chart. This would keep each team's positions and players independent. The
+  current implementation manages one chart per instance and does not provide
+  a team manager.
 - **Other sports:** Position names are not restricted to NFL values. Sports
   that use the same position-and-ordered-player model could reuse the core
-  behavior; sport-specific rules would need further analysis.
+  behavior. Player identity and sport-specific rules would need to be reviewed
+  before extending the implementation.
+- **Position validation:** If required, introduce an authoritative set of
+  valid position codes for each sport and reject unrecognised codes.
 - **Persistence and concurrency:** The current implementation is in-memory.
   Persistent storage and concurrent updates would require additional design
   if the application were expanded.

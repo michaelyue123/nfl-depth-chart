@@ -10,6 +10,9 @@ public sealed class TeamDepthChart
         Player player,
         int? positionDepth = null)
     {
+        ValidatePosition(position);
+        ArgumentNullException.ThrowIfNull(player);
+
         bool positionExists = depthChartRecord.TryGetValue(position, out var positionRecord);
 
         positionRecord ??= new List<Player>();
@@ -44,6 +47,9 @@ public sealed class TeamDepthChart
         string position,
         Player player)
     {
+        ValidatePosition(position);
+        ArgumentNullException.ThrowIfNull(player);
+
         if (!depthChartRecord.TryGetValue(position, out var positionRecord))
         {
             return [];
@@ -65,6 +71,9 @@ public sealed class TeamDepthChart
 
     public IReadOnlyList<Player> GetBackups(string position, Player player)
     {
+        ValidatePosition(position);
+        ArgumentNullException.ThrowIfNull(player);
+
         if (!depthChartRecord.TryGetValue(position, out var positionRecord))
         {
             return [];
@@ -86,5 +95,17 @@ public sealed class TeamDepthChart
         return depthChartRecord.ToDictionary(
             entry => entry.Key,
             entry => (IReadOnlyList<Player>)entry.Value.ToArray());
+    }
+
+    private static void ValidatePosition(string position)
+    {
+        ArgumentNullException.ThrowIfNull(position);
+
+        if (string.IsNullOrWhiteSpace(position))
+        {
+            throw new ArgumentException(
+                "Position cannot be empty or whitespace.",
+                nameof(position));
+        }
     }
 }

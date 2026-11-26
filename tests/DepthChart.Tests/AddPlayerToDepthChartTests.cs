@@ -164,4 +164,46 @@ public class AddPlayerToDepthChartTests
         var chart = _depthChart.GetFullDepthChart();
         Assert.False(chart.ContainsKey("QB"));
     }
+
+    [Fact]
+    public void AddPlayer_NullPosition_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() => 
+            _depthChart.AddPlayerToDepthChart(null!, _tomBrady));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void AddPlayer_EmptyOrWhitespacePosition_ThrowsArgumentException(
+        string position)
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => 
+            _depthChart.AddPlayerToDepthChart(position, _tomBrady));
+    }
+
+    [Fact]
+    public void AddPlayer_NullPlayer_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() => 
+            _depthChart.AddPlayerToDepthChart("QB", null!));
+    }
+
+    [Fact]
+    public void AddPlayer_PositionNamesDifferByCase_AreTreatedAsDifferentPositions()
+    {
+        // Arrange
+        _depthChart.AddPlayerToDepthChart("QB", _tomBrady);
+        _depthChart.AddPlayerToDepthChart("qB", _blaineGabbert);
+
+        // Act
+        var chart = _depthChart.GetFullDepthChart();
+
+        // Assert
+        Assert.Equal([_tomBrady], chart["QB"]);
+        Assert.Equal([_blaineGabbert], chart["qB"]);
+    }
 }

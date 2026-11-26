@@ -12,7 +12,7 @@ public class GetFullDepthChartTests
     [Fact]
     public void GetFullDepthChart_EmptyChart_ReturnsEmptyDictionary()
     {
-        // Arrange + Act 
+        // Arrange & Act 
         var chart = _depthChart.GetFullDepthChart();
 
         // Assert
@@ -39,7 +39,7 @@ public class GetFullDepthChartTests
     [Fact]
     public void GetFullDepthChart_ChartChangesAfterRetrieval_PreviousSnapshotRemainsUnchanged()
     {
-        // Arrange + Act
+        // Arrange & Act
         _depthChart.AddPlayerToDepthChart("QB", _tomBrady);
         var oldChart = _depthChart.GetFullDepthChart();
 
